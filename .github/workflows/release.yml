@@ -3,7 +3,7 @@ on:
   workflow_dispatch:
     inputs:
       send_repository_dispatch:
-        description: "Send repository_dispatch to oss-client? (Default value: yes)"
+        description: "Send repository_dispatch to oss-client?"
         required: true
         default: 'yes'
 
@@ -36,7 +36,7 @@ jobs:
       - name: Deploy artifacts
         run: mvn release:clean release:prepare release:perform
       - name: Send Repository Dispatch Event
-        if: success() && github.event.inputs.send_repository_dispatch == 'true'
+        if: success() && github.event.inputs.send_repository_dispatch == 'yes'
         env:
           GITHUB_TOKEN: ${{ secrets.GH_SECRET }}
           OWNER: xsalefter
