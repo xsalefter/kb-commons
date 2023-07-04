@@ -9,7 +9,7 @@
     </parent>
     <groupId>com.xsalefter.kb.commons</groupId>
     <artifactId>kb-commons</artifactId>
-    <version>2.0.10</version>
+    <version>2.0.11-SNAPSHOT</version>
     <packaging>jar</packaging>
     <name>kb-commons</name>
 
@@ -22,7 +22,7 @@
     <scm>
         <connection>scm:git:git://github.com/xsalefter/kb-commons.git</connection>
         <developerConnection>scm:git:git@github.com:xsalefter/kb-commons.git</developerConnection>
-        <tag>kb-commons-2.0.10</tag>
+        <tag>HEAD</tag>
         <url>http://github.com/xsalefter/kb-commons/tree/master</url>
     </scm>
 
