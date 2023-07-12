@@ -15,8 +15,6 @@ jobs:
           REPO: kb-oss-parent
         # using double quote in request body because we need to parse variable from string
         run: |
-          VERSION_WITH_SNAPSHOT=$(mvn help:evaluate -Dexpression=project.version -q -DforceStdout)
-          PROJECT_VERSION=${VERSION_WITH_SNAPSHOT%-SNAPSHOT*}
           curl -L \
             -X POST \
             -H "Accept: application/vnd.github+json" \
@@ -24,3 +22,17 @@ jobs:
             -H "X-GitHub-Api-Version: 2022-11-28" \
             https://api.github.com/repos/${OWNER}/${REPO}/dispatches \
             -d "{\"event_type\":\"repository_workflow_together\", \"client_payload\": {\"hello-msg\": \"Hello From Testing\", \"is-exist\": \"true\"}}"
+
+      - name: "Testing send to workflow_dispatch_call.yml in kb-oss-parent"
+        env:
+          GITHUB_TOKEN: ${{ secrets.GH_SECRET }}
+          OWNER: xsalefter
+          REPO: kb-oss-parent
+        run: |
+          curl -L \
+            -X POST \
+            -H "Accept: application/vnd.github+json" \
+            -H "Authorization: Bearer ${GITHUB_TOKEN}"\
+            -H "X-GitHub-Api-Version: 2022-11-28" \
+            https://api.github.com/repos/${OWNER}/${REPO}/actions/workflows/workflow_dispatch_call.yml/dispatches \
+            -d '{"ref": "master", "inputs": {"hello-msg": "Hello From Testing workflow_dispatch_call.yml", "is-exist": "true" }}'
